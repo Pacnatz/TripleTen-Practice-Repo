@@ -1,0 +1,16 @@
+Flex box overview:
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/#aa-flexbox-properties
+
+Flex box frog game:
+https://flexboxfroggy.com/
+
+Reset CSS:
+https://meyerweb.com/eric/tools/css/reset/
+Normalize CSS:
+https://necolas.github.io/normalize.css/
+
+Developer Tools Basic Practice:
+https://developer.chrome.com/docs/devtools/css/
+
+CSS Positioning Practice:
+https://css-position.services.practicum.com/

@@ -1,0 +1,131 @@
+body,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  background-color: #151515;
+}
+
+/* add CSS rules for header here */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  height: 660px;
+
+  background-image: url(images/Mountains.jpg);
+  background-size: 100% 100%;
+
+  position: relative;
+}
+
+.header-text {
+  color: yellow;
+  text-align: center;
+}
+
+.header-name {
+  color: yellow;
+  text-align: center;
+
+  margin-top: auto;
+
+  font-weight: 400;
+  width: auto;
+  font-size: 140px;
+  line-height: 100%;
+}
+
+/* add CSS rules for cards and their content here */
+
+.content {
+  flex-direction: row;
+  max-width: 1000px;
+  margin: 40px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  /*
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: black;
+  */
+}
+
+.card {
+  width: 490px;
+  min-height: 440px;
+  background: #ffffff;
+  /*
+  width: 33%;
+  height: 45%;
+  overflow: hidden;
+  padding: 0px;
+  margin-top: 40px;
+  margin-left: 11.25%;
+  background-color: #043078;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  box-sizing: border-box;
+  color: white;
+  */
+}
+
+.card-img {
+  display: block;
+  height: 246px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.16px;
+  color: #151515;
+  margin-bottom: 10px;
+}
+.card-content {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #151515;
+  padding: 20px;
+}
+
+.card-text {
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 16px;
+}
+
+/* add CSS rules for the footer and its content here */
+
+.footer {
+  padding: 20px 0 40px;
+}
+
+.footer-text {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #efefef;
+  text-align: center;
+}
