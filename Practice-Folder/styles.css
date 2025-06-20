@@ -1,39 +1,53 @@
-*{
-    margin: 0;
+* {
+  margin: 0;
 }
 
-.Flex-Cont{
-    display:flex;
-    flex-flow: row nowrap;
-    width: 100%;
-    height: 100vh;
-    justify-content: space-around;
-        
-    align-items: stretch;
+.transform {
+  transform: translate(50px, 10px);
+  max-width: 500px;
+  color: black;
+  background-color: cyan;
+  font-size: 20px;
+  font-weight: 800;
 
-    background-color: green;
+  transition: color 1s linear 0.1s;
 }
 
-
-.Test-Box{
-    display: flex;
-    
-    font-size: 48px;
-    font-weight: bold;
-    width: 100px;
-    
+.transform:hover {
+  color: white;
+  /* transition: color 0.1s linear 0.1s; */
 }
 
-.Test-Box:nth-child(odd){
-    background-color: red;
-}
-.Test-Box:nth-child(even){
-    background-color: blue;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.Flex-Cont {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: 100vh;
+  justify-content: space-around;
+
+  align-items: stretch;
+
+  background-color: green;
 }
 
-.Temp-Box{
-    display:flex;
+.Test-Box {
+  display: flex;
+
+  font-size: 48px;
+  font-weight: bold;
+  width: 100px;
+}
+
+.Test-Box:nth-child(odd) {
+  background-color: red;
+}
+.Test-Box:nth-child(even) {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Temp-Box {
+  display: flex;
 }

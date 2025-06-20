@@ -14,3 +14,15 @@ https://developer.chrome.com/docs/devtools/css/
 
 CSS Positioning Practice:
 https://css-position.services.practicum.com/
+
+Browser support:
+Icanuse.com
+
+Transform Matrix Generator:
+https://angrytools.com/css-generator/transform/
+
+Cubic-Bezier curve:
+https://cubic-bezier.com/#.44,-0.59,.83,.67
+
+Code and coffee:
+https://codeandcoffee.org/
