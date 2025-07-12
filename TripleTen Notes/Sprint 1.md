@@ -88,7 +88,7 @@ column-gap: 20px;
 
 ![[3. Margin Collapsing | 200]]
 Margin-bottom will collapse and element 2's margin-top: 40px; will take affect
-<span class="blue-text-bold">Margin collapsing does not take place in a flex box. The margins will be added together</span>
+<span class="red-text-bold">Margin collapsing does not take place in a flex box. The margins will be added together</span>
 
 ## Meta Tags, Semantics, and Basic Interactivity
 #### Semantic tags:
@@ -260,7 +260,7 @@ Selecting an element does:
 * The element itself is outlined on the webpage
 * Corresponding tag is highlighted in the elements tab
 * The CSS styles associated with the elements are shown in the styles tab
-<span class="blue-text-bold">Devtools can be useful for testing styles without reopening code editor</span>
+<span class="red-text-bold">Devtools can be useful for testing styles without reopening code editor</span>
 
 ## Setting Up a Local Development Environment:
 Development env - combination of tools and settings that allow us to test and debug code
@@ -280,9 +280,9 @@ VS Code is primarily a plain text editor
 #### BEM (Block Element Modifier):
 * Naming conventions
 * Structuring files
-<span class="red-text-bold">Block</span> - Logically and functionally independent page component. Headers, Logos, Search Bars.
-<span class="red-text-bold">Element</span> - Essential part of a block that has no application outside the block. (Search button)
-<span class="red-text-bold">Modifier</span> - A property applied to a block or element
+<span class="blue-text-bold">Block</span> - Logically and functionally independent page component. Headers, Logos, Search Bars.
+<span class="blue-text-bold">Element</span> - Essential part of a block that has no application outside the block. (Search button)
+<span class="blue-text-bold">Modifier</span> - A property applied to a block or element
 
 #### BEM Blocks:
 * Blocks have the same name as their classes
@@ -319,17 +319,17 @@ VS Code is primarily a plain text editor
 ###### Key-Value modifier:
 * solution-status_type_success
 * block__element_key_value
-<span class="blue-text-bold">Never have modifiers alone in a class list</span>
+<span class="red-text-bold">Never have modifiers alone in a class list</span>
 
 ###### Modifier keys:
-* <span class="red-text">type</span> - used to describe purpose or functionality (button_type_submit)
-* <span class="red-text">theme</span> - describes appearance (card_theme_dark)
-* <span class="red-text">size</span> - describes different size (icon_size_s)
-* <span class="red-text">content</span> - describes the type of content in container (footer__column_content_hours)
+* <span class="blue-text-bold">type</span> - used to describe purpose or functionality (button_type_submit)
+* <span class="blue-text-bold">theme</span> - describes appearance (card_theme_dark)
+* <span class="blue-text-bold">size</span> - describes different size (icon_size_s)
+* <span class="blue-text-bold">content</span> - describes the type of content in container (footer__column_content_hours)
 
 #### Using Modifiers and Mixes with Blocks
-* <span class="red-text">modifier</span> - classes that are applied to specific blocks or elements to change their state, behavior, appearance
-* <span class="red-text">mix</span> - class to apply styles to multiple blocks or elements
+* <span class="blue-text-bold">modifier</span> - classes that are applied to specific blocks or elements to change their state, behavior, appearance
+* <span class="blue-text-bold">mix</span> - class to apply styles to multiple blocks or elements
 
 ###### Creating mixes:
 * Combining, blocks, main-text mixer for section and footer (combining general rules across different blocks & elements)
@@ -369,7 +369,7 @@ img + p { } /* Not BEM approved */
 ```
 
 #### CSS Specificity and BEM:
-<span class="red-text-bold">specificity</span> - refers to the rules that dictate which style will be applied to an element when multiple conflicting styles are present.
+<span class="blue-text-bold">specificity</span> - refers to the rules that dictate which style will be applied to an element when multiple conflicting styles are present.
 ###### The specificity score:
 1. Inline Styles \<style>\</style>                                                    1-0-0-0
 2. ID Selectors  #                                                                              1-0-0
@@ -426,8 +426,8 @@ Specificity is read left to right if the same, it's applied top down
 * z-index: auto does not create stacking context (z-index: 0 does)
 
 ## File Structure and File Paths
-<span class="red-text-bold">extension</span> - file extension such as .html .css
-<span class="red-text-bold">stem</span> - file name
+<span class="blue-text-bold">extension</span> - file extension such as .html .css
+<span class="blue-text-bold">stem</span> - file name
 * Data files: primarily store information .txt .jpg .html .css
 * Executable files: These are files that can run directly as software applications or task
 ###### Directory:
@@ -435,8 +435,8 @@ Specificity is read left to right if the same, it's applied top down
 * Hierarchy
 * Project organization
 
-<span class="red-text-bold">root directory</span> - Top most directory
-<span class="red-text-bold">subdirectory</span> - Nested directories
+<span class="blue-text-bold">root directory</span> - Top most directory
+<span class="blue-text-bold">subdirectory</span> - Nested directories
 
 ###### Common subdirectories:
 * Images
@@ -449,5 +449,5 @@ On windows and mac files and directories and case insensitive but URLs are case 
 (Make sure all files are case-sensitive)
 ./ - Refers to the current directory
 ../ - Refers to a directory one level higher
-<span class="blue-text-bold">Only use relative paths with live server</span>
-<span class="red-text-bold">Content Delivery Network (CDN)</span> - A link to an external website that can contain CSS or JavaScript that you can link to your html
+<span class="red-text-bold">Only use relative paths with live server</span>
+<span class="blue-text-bold">Content Delivery Network (CDN)</span> - A link to an external website that can contain CSS or JavaScript that you can link to your html

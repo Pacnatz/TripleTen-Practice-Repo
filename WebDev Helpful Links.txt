@@ -26,3 +26,6 @@ https://cubic-bezier.com/#.44,-0.59,.83,.67
 
 Code and coffee:
 https://codeandcoffee.org/
+
+Webfont Generator:
+https://www.fontsquirrel.com/tools/webfont-generator

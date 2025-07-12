@@ -1,0 +1,3 @@
+[submodule "se_project_coffeeshop"]
+	path = se_project_coffeeshop
+	url = git@github.com:Pacnatz/se_project_coffeeshop.git

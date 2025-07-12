@@ -1,11 +1,11 @@
 ## Intro to Git and the Command Line:
 #### Intro:
-<span class="red-text-bold">shell</span> - A program that interprets command line inputs and translates them into instructions for the OS
-<span class="red-text-bold">pwd</span> - Print Working Directory  <span class="green-text">Displays current path</span>
-<span class="red-text-bold">ls</span> - List  <span class="green-text">Displays a list of the files and folders inside current directory</span>
-<span class="red-text-bold">cd</span> - Change Directory  <span class="green-text">cd Folder_Name</span>
-<span class="red-text-bold">#</span> - <span class="green-text">Bash comments</span>
-<span class="blue-text-bold">Avoid spaces in file names because it will be harder to work with git bash</span>
+<span class="blue-text-bold">shell</span> - A program that interprets command line inputs and translates them into instructions for the OS
+<span class="blue-text-bold">pwd</span> - Print Working Directory  <span class="green-text">Displays current path</span>
+<span class="blue-text-bold">ls</span> - List  <span class="green-text">Displays a list of the files and folders inside current directory</span>
+<span class="blue-text-bold">cd</span> - Change Directory  <span class="green-text">cd Folder_Name</span>
+<span class="blue-text-bold">#</span> - <span class="green-text">Bash comments</span>
+<span class="red-text-bold">Avoid spaces in file names because it will be harder to work with git bash</span>
 * cd "My Videos"
 * cd My\ Videos*
 
@@ -57,7 +57,7 @@
 * git log  <span class="green-text">Logs all commits</span>
 
 #### SSH:
-<span class="red-text-bold">SSH</span> - Secure Shell transport layer protocol
+<span class="blue-text-bold">SSH</span> - Secure Shell transport layer protocol
 * A secure protocol like https
 * Has a key pair (public & private)
 * Used for authenticating actions specifically for remote desktops and via the command line
@@ -67,9 +67,9 @@
 * ssh -keygen -t ed25519 -C "your_email@domain.com"  <span class="green-text">Generates ssh keys</span>
 * ps -a | grep ssh-agent | grep -v grep  <span class="green-text">Checks for running ssh agent</span>
 * eval $(ssh-agent -s)  <span class="green-text">Starts an ssh agent (need to run again after rebooting)</span>
-* ssh-add ~/.ssh/id_ed25119  <span class="green-text">Binds private key to agent (need to run when reopening terminal)</span>
-* clip < ~/.ssh/id_ed25119.pub  <span class="green-text">Copies public key to clip board</span>
-* cat ~/.ssh/id_ed25119.pub  <span class="green-text">Prints public key to terminal</span>
+* ssh-add ~/.ssh/id_ed25519  <span class="green-text">Binds private key to agent (need to run when reopening terminal)</span>
+* clip < ~/.ssh/id_ed25519.pub  <span class="green-text">Copies public key to clip board</span>
+* cat ~/.ssh/id_ed25519.pub  <span class="green-text">Prints public key to terminal</span>
 * ssh -T git@github.com  <span class="green-text">Tests the connection</span>
 
 #### Linking Local and Remote Repositories:
@@ -106,7 +106,7 @@
 ```
 
 #### Responsive iframes:
-<span class="red-text-bold">responsive</span> - displays well on screens of all sizes
+<span class="blue-text-bold">responsive</span> - displays well on screens of all sizes
 ```css
 .container{
 	position: relative;
@@ -157,7 +157,7 @@ div {
 * ease-in-out
 * linear
 
-<span class="blue-text-bold">Applying transitions to the hover state will only affect when you hover over, not when you take off. Applying transitions to the base class will affect it both ways</span>
+<span class="red-text-bold">Applying transitions to the hover state will only affect when you hover over, not when you take off. Applying transitions to the base class will affect it both ways</span>
 
 #### Shadows:
 * Horizontal shadow offset
@@ -227,7 +227,7 @@ background-image: radial-gradient(at 40px 50px, #0078FF, #C2E3E3);
 ```css
 animation: move 2s ease-in-out 1s 3 reverse forward running;
 ```
-<span class="blue-text-bold">animation-duration placed before animation-delay</span>
+<span class="red-text-bold">animation-duration placed before animation-delay</span>
 
 ## Forms
 #### What is a form:
@@ -238,7 +238,7 @@ animation: move 2s ease-in-out 1s 3 reverse forward running;
 	</fieldset>
 </form>
 ```
-<span class="red-text-bold">fieldsets</span> - group all text inputs or all button input together. Helps with semantics.
+<span class="blue-text-bold">fieldsets</span> - group all text inputs or all button input together. Helps with semantics.
 
 #### Input Fields:
 * Does not require a closing tag
@@ -287,3 +287,120 @@ animation: move 2s ease-in-out 1s 3 reverse forward running;
 	<input type="text"/>
 </label>
 ```
+
+#### Submitted Values:
+* server_address/form.html?firstname=Mike&authorized=yes&search=google
+* ? - Separates server address with string query
+* & - Separates name/value pairs
+```html
+<input type="text" name="firstname" value="No name entered">
+<select name="search">
+	<option value="google">Google</option>
+</select>
+```
+
+#### Checkboxes and Radio Buttons:
+* Checkboxes - allow users to check one or more options
+* Radiobuttons - allow users to select only one option
+```html
+<input type="checkbox" />
+<input type="radio" />
+```
+* checkbox needs to all have the same name attributes and labels need to match the id
+* radio also needs to also all have the same name attribute
+```html
+<input type="radio" name="choice" checked /> <!-- Initialize with checked -->
+```
+
+#### Placeholders:
+* doesn't take place of the value and does not need to be manually deleted
+```html
+<input type="text" name="firstname" placeholder="John Doe" />
+```
+
+#### Required Fields:
+```html
+<input type="text" required />
+```
+
+#### Styling Text Input Fields:
+* Input fields and labels are inline elements. Need to change display to control positioning
+* Input fields don't inherit fonts. Need to manually add font-family: inherit;
+```css
+input:focus {  /* When input is selected */
+	outline-color: yellow;
+	outline-style: dashed;
+	outline-width: 3px;
+}
+input[type="submit"] {  /* You can also use BEM methodology */
+	/* Add styles here */
+}
+```
+
+#### Styling Non-Standard Input Fields:
+* <span class="blue-text-bold">Non-standard input field</span> - Any field that doesn't take text. (Checkbox, Radio, Range)
+* Hide the input field
+```html
+<label> <!-- Still need this to click on it -->
+	<input type="checkbox" class="invisible-checkbox" />
+	<span class="visible-checkbox"></span>
+</label>
+```
+```css
+input[type="checkbox"] {  /* Hiding checkbox */
+	appearance: none;
+}
+input[type="checkbox"]+span {  /* Gets the span element right after checkbox */
+	/* Add styles here */
+}
+```
+###### CheckBox Pseudo Classes: 
+- disabled
+- checked
+- focus
+
+#### Styling Placeholder:
+```css
+input::-webkit-input-placeholder { }  /* Safari and Chrome */
+input::-moz-placeholder { }  /* Firefox */
+input::-ms-input-placeholder { } /* Internet Explorer */
+input::placeholder{ }
+```
+<span class="green-text">There are a lot of places where you need vendor prefixes. Placeholders is just one example </span>
+
+## File Organization with BEM:
+#### CSS At-Rules @import:
+- Change the behavior or appearance of elements on a webpage
+- @identifier_name rule;
+```css
+@import url("main.css"); /* includes external files like fonts or extra css code */
+/* only works at top of file */
+```
+
+#### File Structure:
+![[4. BEM File structure|400]]
+
+#### Global Styles:
+* Recommended to declare font family and font sizes for each BEM block
+* You could also create a shared style but not recommended with BEM
+* Place into vendors directory then connect with @import
+
+
+## README.md: 
+* \# Heading 1  <span class="green-text">First level heading</span>
+* \## Heading 2  <span class="green-text">Second level heading</span>
+* \*Welcome*  <span class="green-text">Italics</span>
+* \_\_Hello__  <span class="green-text">Bold</span>
+* \~\~Nevermind~~  <span class="green-text">Crossed out</span>
+* 1. One  <span class="green-text">Ordered list</span>
+* 2. Two
+* 3. Three
+* - Milk  <span class="green-text">Unordered list</span>
+* - Eggs
+* - Toast
+* \`\`\`html/css/javascript  <span class="green-text">Code snippet</span>
+  alert('Hey!')
+  \`\`\`
+* \[Practicum] (https://www.practicum.com) <span class="green-text">Link</span>
+* \!\[alt text] (relative_path)  <span class="green-text">Picture</span>
+

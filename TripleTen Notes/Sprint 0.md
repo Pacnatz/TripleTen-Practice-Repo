@@ -1,5 +1,5 @@
-inline style - A style that's placed inside a tag
-selector - An html tag you have selected to modify
+<span class="blue-text-bold">inline style</span> - A style that's placed inside a tag
+<span class="blue-text-bold">selector</span> - An html tag you have selected to modify
 ```css
 h2{
 	font-size: 32px;
