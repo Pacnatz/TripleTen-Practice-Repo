@@ -274,6 +274,10 @@ On mobile:
 - Mid-sized desktop computers and laptops
 - Large Monitors (min-width: 1440px)
 - Huge Monitors (min-width: 2560px)
+
+- Desktop View 1320px+
+- Tablet View 630px - 1320px
+- Mobile View 320px - 630px
 ###### Styling via orientation:
 ```css
 @media screen and (max-width: 568px) and (max-height: 320px) { /* styles for iPhone 5 */ }
@@ -436,7 +440,7 @@ body {
 vendor/
 	fonts/
 		--> contains all necessary font files
-	fonts.css
+	fonts.css  /* holds all your @font-face */
 	normalize.css
 ```css
 @font-face { 

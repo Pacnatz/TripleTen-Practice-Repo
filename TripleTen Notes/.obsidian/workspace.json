@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sprint 2.md",
+                "file": "Sprint 3.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sprint 2"
+              "title": "Sprint 3"
             }
           }
         ],
@@ -68,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "grid",
+                "query": "max-content",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,7 +89,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -186,15 +187,15 @@
   },
   "active": "5ff8a47008ed2d7c",
   "lastOpenFiles": [
-    "Sprint 3.md",
+    "Sprint 1.md",
+    "Excalidraw/2. Flexbox Diagram.md",
     "Sprint 2.md",
+    "Sprint 3.md",
     "Excalidraw/7. Git Commit Cycle.md",
     "Sprint 0.md",
-    "Sprint 1.md",
     "Excalidraw/6. Grid Diagram Reverse.md",
     "Excalidraw/5. Grid Diagram.md",
     "Excalidraw/3. Margin Collapsing.md",
-    "Excalidraw/2. Flexbox Diagram.md",
     "Excalidraw/4. BEM File structure.md",
     "Excalidraw/1. Margin vs Padding.md",
     "Excalidraw",
