@@ -29,3 +29,10 @@ https://codeandcoffee.org/
 
 Webfont Generator:
 https://www.fontsquirrel.com/tools/webfont-generator
+
+** Volunteer engineering communities **
+
+Givecamp: The idea for this coding-for-charity community came from a Microsoft Developer Evangelist. Channel your inner software engineer energy to benefit the local community.
+The United Nations Volunteers (UNV) program: Find opportunities to contribute to sustainable human development through volunteerism worldwide.
+Remote Hub Volunteering: Browse various projects that are looking for volunteer software engineers.
+Idealist: Volunteer for social-impact projects.
