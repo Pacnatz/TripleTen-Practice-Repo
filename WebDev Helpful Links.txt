@@ -36,3 +36,6 @@ Givecamp: The idea for this coding-for-charity community came from a Microsoft D
 The United Nations Volunteers (UNV) program: Find opportunities to contribute to sustainable human development through volunteerism worldwide.
 Remote Hub Volunteering: Browse various projects that are looking for volunteer software engineers.
 Idealist: Volunteer for social-impact projects.
+
+JavaScript Additional Resources:
+https://javascript.info/

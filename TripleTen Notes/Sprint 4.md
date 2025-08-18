@@ -342,3 +342,293 @@ function isEven(n) {
 	return n % 2 === 0;
 }
 ```
+
+## Basics of the DOM:
+<span class="blue-text-bold">DOM</span> - Document object model
+<span class="blue-text-bold">DOM tree</span> - Browser translates all HTML content into a format Javascript can understand
+<span class="red-text-bold">Elements on devtools actually show the DOM tree this includes elements added by Javascript</span>
+
+#### Selecting HTML Elements :
+```html
+<!-- Adding scripts to the DOM -->
+<!-- After all DOM elements -->
+<body>
+	<!-- elements -->
+	<script src="path/to/script"></script>
+</body>
+<!-- Before DOM elements -->
+<head>
+	<script defer src="path/to/script"></script>
+</head>
+<body>
+	<!-- elements -->
+</body>
+```
+###### Accessing the first element that matches a CSS selector:
+```html
+<main id="container"> 
+	<div class="content"> 
+		<div class="content__item"></div>
+		<div class="content__item"></div>
+		<div class="content__item"></div>
+	</div> 
+</main>
+```
+```javascript
+const containerElement = document.querySelector("#container");
+const contentElement = containerElement.querySelector(".content");
+// contentItem is the first matching element
+const contentItem = contentElement.querySelector(".content__item");
+// contentItems is a collection of all matching elements
+const contentItems = contentElement.querySelectorAll(".content__item");
+```
+###### Using more complicated selectors:
+```html
+<section class="bag">
+	<div class="item">
+		<h3>Glasses case</h3>
+		<p>Glasses</p>
+	</div>
+	<p class="item">Brush</p>
+	<p class="item">Pocket mirror</p>
+	<div class="item bag">
+		<h3>Makeup Bag</h3>
+		<p class="item">Lipstick</p>
+		<p class="item">Mascara</p>
+	</div> 
+	<p class="item wallet">Wallet</p>
+</section>
+```
+```javascript
+const makeupBagContent = document.querySelectorAll("section.bag div.bag .item"); console.log(makeupBagContent); 
+// Outputs a NodeList containing the elements with the text "Lipstick" and "Mascara"
+```
+<span class="green-text">querySelector() - reutrns null if nothing found</span>
+<span class="green-text">querySelectorAll() - returns an empty NodeList if nothing found</span>
+
+#### Browser Events
+<span class="blue-text-bold">Event</span> - something that happens on a webpage
+
+- "click" - triggered when you click on an element
+- "mouseover" - triggered when the cursor hovers over an element
+- "mouseout" - triggered when the cursor hover ends and it moves away from an element
+- "scoll" - triggered when the user scrolls an element
+- "submit" - triggered when the user clicks a submit \<button> element or presses Enter while editing an input field in a form
+
+###### Listening for and reacting to events:
+```javascript
+element.addEventListener(eventName, handler);
+// Handler is the function that runs when the event is triggered
+
+const element = document.querySelector(".my-element");
+
+function showClick() {
+  console.log("You have clicked on the element");
+}
+
+element.addEventListener("click", showClick); 
+
+element.addEventListener("click", function () {
+  console.log("You have clicked on the element");
+});
+```
+<span class="blue-text-bold">callback function</span> - A function that is passed into another function so that it can be invoked later
+<span class="blue-text-bold">Anonymous function</span> - A function that is declared inside the parameter
+
+###### Listener vs handler:
+- Listener - Listens for an event to occur (i.e. the thing that the addEventListener() creates)
+- Handler - A function that is called when the event occurs (i.e. the function passed to addEventListener())
+
+#### Setting Attributes:
+- Set value of an attribute with setAttribute()
+- Remove an attribute with removeAttribute()
+
+###### setAttribute() method:
+```javascript
+const button = document.querySelector(".form__button");
+button.setAttribute("type", "submit");
+button.setAttribute("style", "background-color: #000");
+// Boolean attributes
+button.setAttribute("disabled", true);
+button.setAttribute("disabled", false);
+// Remove attributes
+button.removeAttribute("disabled");
+```
+###### Attributes as object properties:
+```html
+<a class="menu__link" href="https://tripleten.com/">TripleTen</a>
+```
+```javascript
+const link = document.querySelector(".menu__link");
+console.log(link.href);
+link.href = "https://linkedin.com";
+```
+#### Manipulating Classes:
+<span class="blue-text-bold">classList</span> - A property that conveniently modifies the class attributes
+```html
+<h1 class="article__title">Article Title</h1>
+```
+```javascript
+const title = document.querySelector(".article__title");
+console.log(title.classList); 
+// Outputs ['article__title']
+```
+###### Adding a class name with the add() method:
+```javascript
+title.classList.add("article__title_theme_dark");
+console.log(title.classList);
+// ['article__title', 'article__title_theme_dark']
+```
+###### Removing a class with the remove() method:
+```javascript
+title.classList.remove("article__title_theme_dark");
+console.log(title.classList);
+// ['article__title']
+```
+###### Checking whether a class is present with contains() method: 
+```javascript
+console.log(title.classList.contains("article__title_theme_dark")); // False
+```
+###### Toggling a class with the toggle() method:
+```javascript
+title.classList.toggle("article__title_theme_dark");
+// Adds if it's not there, removes if it's there
+```
+#### Form Submission Events:
+<span class="blue-text-bold">Action attribute</span> - Rare but now we handle form submissions with JS and DOM events
+###### Basic form submission without JavaScript:
+1. The browser sends the form data to the URL specified in the \<form> tag's action attribute
+2. The page is reloaded.
+```html
+<form id="myForm" action="/submit" method="POST">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+```
+###### Handling form submission with JavaScript:
+```html
+<form id="myForm">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+```
+```javascript
+const myForm = document.querySelector("#myForm");
+
+myForm.addEventListener("submit", function (evt) {
+  evt.preventDefault(); // Prevent the page from reloading when the form is submitted
+  // Handle the submission event
+}) 
+```
+<span class="blue-text-bold">event object</span> - A special JavaScript object containing information about the event that just occurred.
+
+#### Form Field Values:
+###### The value property:
+```html
+<form class="form" id="myForm">
+  <label for="name">Name:</label>
+  <input class="form__input" type="text" id="name-input" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+```
+
+```javascript
+const myForm = document.querySelector("#myForm");
+const nameInput = myForm.querySelector(".form__input");
+// Selecting the input for the form
+myForm.addEventListener("submit", function(evt) {
+	evt.preventDefault();
+	console.log(nameInput.value);
+	// Resetting the form
+	myForm.reset();
+})
+```
+#### innerHTML and textContent:
+```html
+<p class="modal__text">
+  Hi, {name}! Your reservation for {count} has been made for {date}. A
+  confirmation email has been sent to {email}.
+</p>
+```
+To access or change this text node we can use it's parent element's textContent property.
+###### Acccessing text content:
+<span class="blue-text-bold">textContent</span> - Allows us to access and change the text content of an element
+```javascript
+const title = document.querySelector(".article__title");
+console.log(title.textContent); // Outputs the textContent
+title.textContent = "Are NFTs the new way to collect art?";
+console.log(title.textContent);
+// Output: Are NFTs the new way to collect art?
+```
+<span class="red-text-bold">You should not modify the textContent if that element has children. It will override everything</span>
+###### Accessing and updating HTML content
+<span class="blue-text-bold">innerHTML</span> - A string containing all of an element's HTML content (including tags)
+```javascript
+document.body.innerHTML = "<h1 class='heading'>World of Web 3.0</h1>"
+```
+#### The Event Object's target Property:
+###### The event target:
+```javascript
+myForm.addEventListener("submit", function (evt) {
+	evt.preventDefault();
+	evt.target.reset();
+	// Stores a reference to the element the event fired on
+	// This will always reset the form that was submitted
+})
+```
+evt.target refers to the element that intiated the event
+
+## Debugging
+#### How to Read Errors:
+![[8. Error Message | 300]]
+1. Error Type - Reference errors indicates non-existent variable
+2. Error message - Tells you exactly what happened
+3. Call stack - List of functions that were called leading up to the error
+4. Error location: File name and line location (2 numbers :42:12) indicates line number and characters in the line
+
+#### Error Types:
+<span class="blue-text-bold">Syntax Error</span> - Something wrong with the syntax
+<span class="blue-text-bold">Reference error</span> - Undeclared variable or function
+<span class="blue-text-bold">Type error</span> - When you try to use a variable name as a function
+
+#### The Debugger:
+###### The debugger statement:
+```javascript
+function logCharacters(str) {
+	debuggger; // Will pause the code here
+for (let index = 0; index < str.length; index++) {
+		console.log(str[index]);
+	}
+}
+logCharacters('SEGAAAAAA');
+```
+###### Breakpoints:
+Into the sources tab on DevTools you can right click on a line of code and set a breakpoint
+
+## Expert Git:
+#### Branches: 
+<span class="blue-text-bold">Branches</span> - Isolated versions of your code that won't be seen elsewhere
+```bash
+git branch #Shows a list of branches
+git branch feature/header #Creates a new branch
+git checkout feature/header #Switch to a cerrtain branch
+
+git switch -c branch_name # Creates a new branch and switch to it
+
+git switch main
+git checkout main # same commands
+git merge feature/header #Merging feature/header onto main
+
+git branch -D feature/header #Deletes a branch
+```
+###### Git switch and git restore vs git checkout
+- <span class="blue-text-bold">git switch</span> - for changing branches
+- <span class="blue-text-bold">git restore filepath</span> - For restoring the content of files to match the last commit and overwriting any uncommitted changes
+- <span class="blue-text-bold">git checkout</span> - Does both git switch and git restore
+
+<span class="red-text-bold">If a branch implements a new feature start the branch with the word feature.</span>
+
+<span class="red-text-bold">If the branch is to fix a bug start the branch with bugfix</span>
+
