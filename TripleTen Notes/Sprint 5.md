@@ -537,3 +537,123 @@ showTeam("Alice", "Bob", "Charlie", "Diana");
 // Leader: Alice 
 // Members: Bob, Charlie, Diana
 ```
+
+## Creating Elements and Adding them to the DOM:
+#### insertAdjacentHTML() and insertAdjacentText():
+<span class="red-text-bold">innerHTML and textContentwill delete DOM tree and reconstruct it</span>
+<span class="blue-text-bold">insertAdjacentHTML()</span> - Takes a string specifying insertion point and another string containing markup
+- beforeend - insert before the closing tag
+- beforebegin - insert before the opening tag
+- afterbegin - insert after the opening tag
+- afterend - insert after the closing tag
+```html
+<!-- "beforebegin" --> 
+<div> 
+	<!-- "afterbegin" --> 
+		<!-- some HTML code that is already present --> 
+	<!-- "beforeend" --> 
+</div> 
+<!-- "afterend" -->
+```
+<span class="blue-text-bold">insertAdjacentText()</span> - Works similar but it only adds text like the textContent property
+
+```html
+<div class="parent"> 
+	<p>New</p> 
+	<div class="child"></div> 
+</div>
+```
+```javascript
+document .querySelector(".parent") .insertAdjacentHTML("afterbegin", "<p>New</p>")
+```
+
+#### createElement() and createTextNode():
+<span class="blue-text-bold">document.createElement()</span> - takes a tag name string as an argument and creates the element
+<span class="blue-text-bold">document.createTextNode()</span> - takes any string as an argument and creates a text node
+```javascript
+// createElement() takes the tag name as input 
+const listItem = document.createElement("li"); 
+const divElement = document.createElement("div"); 
+const imageElement = document.createElement("img"); 
+// createTextNode() takes the text of the node as input 
+const textItem = document.createTextNode("Hello, world");
+```
+You can use these variables to change class list and attributes and textContent
+#### Adding Elements to the Page:
+1. Select parent element
+2. Create elements you want to insert
+3. Append them to the parent element
+
+```javascript
+const list = document.querySelector(".todo-list"); 
+
+// An array of tasks for today 
+const tasks = [ 
+	"Do a project", 
+	"Walk the dog", 
+	"Complete a React tutorial" 
+]; 
+
+// Convert the array of tasks for today to an array of elements 
+const taskElements = tasks.map(task => { 
+	const listItem = document.createElement("li"); 
+	listItem.textContent = task; 
+	return listItem; 
+}); 
+
+// Add all elements to the DOM by "unpacking" 
+// the array elements into append() 
+list.append(...taskElements);
+```
+
+###### The 5 methods of adding elements:
+- <span class="blue-text-bold">node.append(...args)</span> - Inserts arguments after last child of node
+- <span class="blue-text-bold">node.prepend(...args)</span> - Inserts arguments before the first child of the node
+- <span class="blue-text-bold">node.before(...args)</span> - Inserts its arguments before the node
+- <span class="blue-text-bold">node.after(...args)</span> - Inserts its arguments after the node
+- <span class="blue-text-bold">node.replaceWith(...args)</span> - Replaces the node with the specified nodes or strings
+
+#### Cloning Elements:
+<span class="blue-text-bold">cloneNode()</span> - Allows you to get a clone of an element
+```javascript
+// Cloning the element with all its child elements 
+const deepCopy = elem.cloneNode(true); 
+// Cloning the element without its child elements 
+const shallowCopy = elem.cloneNode(false);
+```
+<span class="red-text-bold">Any event handlers that were on the node that was cloned will not transfer to the cloned node</span>
+
+#### Template Elements:
+<span class="blue-text-bold">template</span> - Allows you to create reusable markup templates
+```html
+<!-- This will not appear on the webpage -->
+<template id="user-template"> 
+	<div class="user"> 
+		<img class="user__avatar" alt="avatar"> 
+		<p class="user__name"></p> 
+	</div> 
+</template>
+```
+1. Select the template and access its content
+2. Make clone of the template's content
+3. Add content to the clone
+4. Add the clone to the DOM
+
+```javascript
+// Select the container where we add our users
+const usersContainer = document.querySelector('.users-container');
+
+const userTemplate = document
+  .querySelector("#user-template")
+  .content
+  .querySelector(".user");
+const userElement = userTemplate.cloneNode(true);
+const userAvatar = userElement.querySelector(".user__avatar");
+
+userAvatar.src = "https://placeholder.png";
+const userName = userElement.querySelector(".user__name");
+userName.textContent = "Laura Ipsum";
+
+// Add the clone to the DOM
+usersContainer.append(userElement);
+```
