@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "6b046b16702e8471",
+        "id": "04576e62070327a2",
         "type": "tabs",
         "children": [
           {
-            "id": "fcdd8ec151630593",
+            "id": "e6e2fd8039d28e9b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Sprint 5.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Sprint 5"
             }
           }
         ]
@@ -156,6 +160,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -165,7 +170,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "fcdd8ec151630593",
+  "active": "e6e2fd8039d28e9b",
   "lastOpenFiles": [
     "Sprint 2.md",
     "Sprint 4.md",

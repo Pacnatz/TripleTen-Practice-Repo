@@ -409,3 +409,131 @@ diseases.sort(function(a, b) {
 
 console.log(diseases); /* ["Erythrophobia","Fear of missing out", "Mysophobia"] */
 ```
+## Functions. Part 2:
+#### Scope:
+<span class="blue-text-bold">Scope</span> - determines where in the code a given identifier can be accessed.
+
+<span class="blue-text-bold">Global scope</span> - Accessed anywhere in your code
+```javascript
+// messageElement is a global variable 
+const messageElement = document.querySelector("#message"); function showMessage() { 
+	// messageElement is accessible here 
+	console.log(messageElement.textContent); 
+} 
+showMessage(); // messageElement is accessible here, too 
+console.log(messageElement.textContent);
+```
+<span class="blue-text-bold">Function scope</span> - Function parameters and any variables inside it can only be accessed in that function
+
+<span class="blue-text-bold">Block scope</span> - Section of code enclosed by a pair of curly braces { }
+```javascript
+if (true) { 
+	const fruit = "apple"; 
+	console.log(fruit); // "apple" 
+} 
+// ReferenceError: fruit is not defined 
+console.log(fruit);
+```
+###### Nested scopes:
+Engine searches for a variable inside the current scope. If it can't find anything it goes to surrounding scope
+
+#### Variable Shadowing:
+- When declaring a variable inside a function with the same name as one that's outside the scope it will "shadow" the variable
+- Function parameters also "shadow" the variable
+- Shadowing is generally discouraged because it can be hard to understand and cause subtle bugs
+
+#### Function Expressions:
+<span class="blue-text-bold">function expression</span> - Another way to define a function in Javascript
+<span class="blue-text-bold"> anonymous functions</span> - Functions that don't have a name
+<span class="red-text-bold">Functions are values they can be assigned to variables, passed as arguments, or returned from other functions</span>
+###### Comparing function expressions and declarations:
+1. A function expression can be anonymous (call back functions)
+2. Function expressions cannot be used before they are defined
+
+```javascript
+const multiply = function (a, b) {
+	return a * b; 
+}; 
+multiply(2, 3); // 6
+```
+#### Arrow Functions:
+<span class="blue-text-bold">Arrow functions</span> - Always anonymous and have a different syntax
+```javascript
+const funcName = function (params) { 
+// Function expression
+} 
+
+const funcName = (params) => { 
+// Arrow function
+}
+
+// Implicit return statements
+// These are equivalent 
+const square = (x) { 
+	return x * x;
+} 
+
+const square = (x) => x * x;
+// Omit parentheses for a single parameter
+const square = x => x * x;
+```
+Arrow functions are often used as callbacks
+
+#### Default Parameters:
+If you omit an argument it will be undefined
+If you pass undefined through the parameter with a default value, the default value will take place
+```javascript
+const createGreeting = (name, greeting = `Hello, ${name}!`) => { return greeting; }; 
+console.log(createGreeting("Alice")); // "Hello, Alice!" 
+console.log(createGreeting("Bob", "Welcome, Bob!")); 
+// "Welcome, Bob!
+}
+```
+
+#### Spread and Rest Parameter Syntax:
+<span class="blue-text-bold">spread syntax</span> - Allows you to "unpack elements of an array or object"
+```javascript
+const nums = [4, 8, 15, 16, 23, 42]; 
+Math.max(nums); // NaN
+
+// Here we "spread out" the numbers in the array
+// as separate function arguments. 
+Math.max(...nums); // 42 
+// The above is equivalent to this 
+Math.max(4, 8, 15, 16, 23, 42); // 42
+```
+###### Copying and Combining Arrays:
+```javascript
+const original = [1, 2, 3]; 
+const copy = [...original]; 
+console.log(copy); // [1, 2, 3]
+
+const a = [1, 2, 3]; 
+const b = [4, 5, 6]; 
+const combined = [...a, ...b]; 
+console.log(combined); // [1, 2, 3, 4, 5, 6]
+```
+###### Copying and Combining Objects:
+```javascript
+// If we add the new property last, it will overwrite 
+// an existing property. 
+const alice = { name: "Alice", age: 35, job: "Surfer" }; 
+const newAlice = { ...alice, job: "Software Engineer" };
+console.log(newAlice.job); // "Software Engineer" 
+
+// If we add the new property first, an existing property 
+// will overwrite it. 
+const alice = { name: "Alice", age: 35, job: "Surfer" }; 
+const newAlice = { job: "Software Engineer", ...alice }; console.log(newAlice.job); // "Surfer"
+```
+<span class="blue-text-bold">rest syntax</span> - collects multiple values into a single array
+```javascript
+const showTeam = (leader, ...members) => { 
+	console.log(`Leader: ${leader}`); 
+	console.log(`Members: ${members.join(", ")}`); 
+}; 
+
+showTeam("Alice", "Bob", "Charlie", "Diana"); 
+// Leader: Alice 
+// Members: Bob, Charlie, Diana
+```
