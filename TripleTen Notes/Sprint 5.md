@@ -355,7 +355,8 @@ console.log(positives); // true
 #### Reducing an Array to a Single Value:
 <span class="blue-text-bold">reduce()</span> - Iterates through the elements and reduces them to one value
 ```javascript
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]; const sum = arr.reduce(function (previousValue, item) { 
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
+const sum = arr.reduce(function (previousValue, item) { 
 	return previousValue + item; 
 }); 
 
@@ -656,4 +657,158 @@ userName.textContent = "Laura Ipsum";
 
 // Add the clone to the DOM
 usersContainer.append(userElement);
+```
+#### Setting Listeners on Multiple Elements:
+<span class="red-text-bold">Use a forEach loop to loop through all the elements and add them on with .addEventHandler("click", function() {});</span>
+
+#### Removing or Moving Elements:
+<span class="blue-text-bold">remove()</span> - Removes an element. You can make a delete button nested inside a list item to target that specific list with a forEach loop
+``` javascript
+function createTodoElement(data) {
+    const todoElement = document.querySelector("#todo-template");
+    
+    const todoDeleteBtn = todoElement
+	    .querySelector(".todo-item__button");
+	    
+    todoDeleteBtn.addEventListener(() => {
+      todoElement.remove();
+    });
+}
+```
+###### Moving elements:
+```javascript
+const todoList = document.querySelector(".todo-list");
+
+// listItems is a pseudo-array of all the
+// children of the todo-list element.
+const todoListItems = todoList.children;
+
+// We can move the first child to the end of the
+// list by appending it to the same container. 
+todoList.append(todoListItems[0]);
+```
+This works with apppend(), prepend(), before(), after(), and replaceWith()
+
+#### Family Relations in the DOM:
+<span class="blue-text-bold">parentElement</span> - links it to the immediate parent element
+```javascript
+console.log(document.body.parentElement);
+
+// Returns the <html> element because it's 
+// the parent of the <body>
+```
+<span class="blue-text-bold">closest()</span> - returns the first parent element matching a given selector
+```html
+<li class="todo">
+  Text
+  <div class="buttons">
+      <button class="todo__delete"></button>
+      <button class="todo__mark-complete"></button>
+  </div>
+</li>
+```
+```javascript
+const todoItem = document
+  .querySelector(".todo__delete")
+  .closest(".todo"); // li.todo
+```
+<span class="blue-text-bold">children</span> - contains an HTMLCollection containing all its child elements
+<span class="blue-text-bold">HTMLCollection</span> - A pseudo-array so it doesn't have access to all array methods
+```javascript
+console.log(document.body.children);
+// Output: HTMLCollection(3) [p, p, p]
+// This is an array
+const children = [...document.body.children];
+```
+<span class="blue-text-bold">previousElementSibling</span> - Gets the nearest neighbor upwards
+<span class="blue-text-bold">nextElementSibling</span> - Gets the nearest neighbor downwards
+
+<span class="red-text-bold">These are all read-only properties. You can read them but not write or change them</span>
+
+#### DOM Collections:
+HTMLCollections and querySelectorAll() return pseudo-arrays. 
+- Object's elements have numeric indexes
+- Object has the length property
+- querySelectorAll() Has forEach but not map(), reduce, filter(), or sort() HTMLCollections don't
+
+###### Array.from() method:
+```javascript
+// This is a NodeList.
+const posts = content.querySelectorAll(".post");
+
+// This is an array, so we can use array methods on it.
+const postsArray = Array.from(posts);
+```
+###### Spread syntax:
+```javascript
+const arr = [1, 2, 3];
+const copy = [...arr];
+```
+<span class="red-text-bold">HTMLCollections do not have forEach method. Also they will automatically update if the DOM is updated</span>
+
+## Managing the Git Story:
+#### Git Merge Conflicts:
+```bash
+git status -sb # Short hand status
+
+# main
+UU index.html
+
+git diff # Shows you all changes between files
+```
+```html
+<!-- unchanged code  -->
+
+<<<<<<< HEAD <!-- The current branch, in our case it's main -->
+        <a href="/catalog" class="navigation__link">Catalog</a>
+======= <!-- The end of changes in the current branch, the beginning of the conflicting branch -->
+        <a href="/contacts" class="navigation__link">Contacts</a>
+>>>>>>> bugfix/header 
+<!-- The end of the part from the bugfix/header branch -->
+
+<!-- more unchanged code -->
+```
+#### Merge Tools:
+Visual studio will identify a file with "C" for conflicting. It will then highlight the conflicting area allowing you to resolve it.
+- Accept Current Change - This will keep what you have in the destination branch and discard incoming changes
+- Accept Incoming Change - This will keep the incoming changes and discard what was already in the destination branch.
+- Accept Both Changes - this keeps changes from both branches
+- Compare Changes - This will open a new tab to give you a side-by-side view of the conflict.
+
+#### Reverting a Git Merge
+```bash
+git revert HEAD # Revert to most recent commit
+git revert commitNumber # Reverts to a commit number
+git revert HEAD~2 # Reverts to 2nd most recent commit
+
+git revert -m 1 3f0d8da 
+# -m specifies that it's a merge commit
+# 1 specifies the parent. Restore all contents from main and revert modifications on the bugfix/header branch
+```
+#### A Clear Commit Message
+```bash
+git log --pretty=oneline # log with each commit on one line
+git show 4411c8d # Shows the git commit including files changed
+```
+<span class="blue-text-bold">Conventional Commits</span> - A commit standard
+- feat - introduces a new feature in your procture
+- fix - patches a bug in your code
+- style - changes the appearance of your code
+- refactor - restructures your code
+```bash
+git commit -m "feat: add responsive for smartphones and tablets"
+```
+#### Git Stash:
+<span class="blue-text-bold">git stash</span> - Allows you to save all your pending changes to a temp location called the stash. (Used for if you don't want to make messy / unclear commits)
+```bash
+git stash # Stash the uncommitted changes
+git switch main # Need to stash before changing branches
+```
+```bash
+git stash list # Shows a list of all the stashed changes
+git stash pop # Retrieve the last changes in any branch and remove from the list
+git stash apply stash@{2} # Retrieve the changes saved in the stash but will keep it in the list
+git stash drop stash@{0} # Deletes stashed changes
+git stash save "stash message" # Similar to commit messages
+git stash clear # Removes stash list entirely
 ```

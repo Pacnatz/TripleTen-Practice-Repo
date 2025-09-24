@@ -39,3 +39,12 @@ Idealist: Volunteer for social-impact projects.
 
 JavaScript Additional Resources:
 https://javascript.info/
+
+YDKJS:
+https://www.reddit.com/r/learnprogramming/comments/cf50qu/you_dont_know_javascript_but_you_could_for_free/
+
+SVG Repo:
+https://www.svgrepo.com/svg/452228/html-5
+
+Import Export Cheatsheet:
+https://www.samanthaming.com/tidbits/79-module-cheatsheet/
