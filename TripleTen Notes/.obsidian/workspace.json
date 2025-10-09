@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "2434a537ea342617",
+            "id": "5f9d875f9605b96c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sprint 7.md",
+                "file": "Sprint 8.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sprint 7"
+              "title": "Sprint 8"
             }
           }
         ]
@@ -94,9 +94,9 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Sprint 3.md",
-                "collapseAll": false,
-                "extraContext": false,
+                "file": "Sprint 8.md",
+                "collapseAll": true,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Sprint 3"
+              "title": "Backlinks for Sprint 8"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Sprint 2.md",
-                "linksCollapsed": false,
+                "file": "Sprint 8.md",
+                "linksCollapsed": true,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Sprint 2"
+              "title": "Outgoing links from Sprint 8"
             }
           },
           {
@@ -151,7 +151,8 @@
               "title": "Outline of Welcome"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -170,16 +171,19 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "2434a537ea342617",
+  "active": "5f9d875f9605b96c",
   "lastOpenFiles": [
+    "Sprint 6.md",
     "Sprint 5.md",
     "Sprint 4.md",
+    "Sprint 8.md",
     "Sprint 7.md",
-    "Sprint 6.md",
+    "Untitled.base",
+    "Excalidraw/6. Grid Diagram Reverse.md",
+    "Excalidraw/9. File Structure.md",
     "Excalidraw/Drawing 2025-09-05 11.58.19.excalidraw.md",
     "2025-09-05.md",
     "Untitled.canvas",
-    "Untitled.base",
     "Sprint 2.md",
     "Excalidraw/8. Error Message.md",
     "Sprint 3.md",
@@ -187,7 +191,6 @@
     "Excalidraw/2. Flexbox Diagram.md",
     "Excalidraw/7. Git Commit Cycle.md",
     "Sprint 0.md",
-    "Excalidraw/6. Grid Diagram Reverse.md",
     "Excalidraw/5. Grid Diagram.md",
     "Excalidraw/3. Margin Collapsing.md",
     "Excalidraw/4. BEM File structure.md",

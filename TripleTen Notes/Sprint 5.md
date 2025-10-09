@@ -289,7 +289,8 @@ function logDetailedInfo(personData, i) { // i is used for index
 <span class="blue-text-bold">map()</span> - Processes each element in the original array and returns the values in a new array
 <span class="green-text"> You need to use the return keyword if not it will return undefined</span>
 ```javascript
-const firstArr = [0, 1, 2, 3, 4]; const secondArr = firstArr.map(function (item) { 
+const firstArr = [0, 1, 2, 3, 4]; 
+const secondArr = firstArr.map(function (item) { 
 	 return item * item; 
 	 // in this case, we're going to square each element 
 }); 
