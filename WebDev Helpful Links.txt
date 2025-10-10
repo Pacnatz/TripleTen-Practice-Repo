@@ -48,3 +48,6 @@ https://www.svgrepo.com/svg/452228/html-5
 
 Import Export Cheatsheet:
 https://www.samanthaming.com/tidbits/79-module-cheatsheet/
+
+Destructuring Cheatsheet:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring#syntax
