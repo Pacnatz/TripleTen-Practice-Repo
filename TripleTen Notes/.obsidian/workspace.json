@@ -13,12 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
+<<<<<<< HEAD
                 "file": "Sprint 9.md",
+=======
+                "file": "Sprint 5.md",
+>>>>>>> a1cd06ac86b7e7f710eb6c7e4b4468e304d4d2c5
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
+<<<<<<< HEAD
               "title": "Sprint 9"
+=======
+              "title": "Sprint 5"
+>>>>>>> a1cd06ac86b7e7f710eb6c7e4b4468e304d4d2c5
             }
           }
         ]
@@ -173,7 +181,17 @@
   },
   "active": "5f9d875f9605b96c",
   "lastOpenFiles": [
+<<<<<<< HEAD
     "Sprint 8.md",
+=======
+    "Sprint 6.md",
+    "Sprint 4.md",
+    "Sprint 7.md",
+    "Sprint 5.md",
+    "Sprint 8.md",
+    "Untitled.base",
+    "Excalidraw/6. Grid Diagram Reverse.md",
+>>>>>>> a1cd06ac86b7e7f710eb6c7e4b4468e304d4d2c5
     "Excalidraw/9. File Structure.md",
     "Sprint 9.md",
     "Excalidraw/11. Response Format.png",
