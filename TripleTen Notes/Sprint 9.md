@@ -944,3 +944,61 @@ fetch("https://se-quotes-api.onrender.com/v1/quotes/random")
     console.log(result);
   });
 ```
+#### API Class Example:
+```javascript
+class RecipeApi {
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+  }
+
+  _handleServerResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
+  getRecipes() {
+    return fetch(`${this._baseUrl}/recipes`, {
+      headers: this._headers,
+    }).then(this._handleServerResponse);
+  }
+
+  addRecipe({ title, ingredients, instructions }) {
+    return fetch(`${this._baseUrl}/recipes`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        title,
+        ingredients,
+        instructions,
+      }),
+    }).then(this._handleServerResponse);
+  }
+}
+```
+```javascript
+function handleRecipeSubmit(evt) {
+  evt.preventDefault();
+
+  // Get the form data from the inputs
+  const recipeData = {
+    // ...
+  };
+
+  // Call the API method and pass it the form data
+  // The passed object must have the shape that is
+  // expected by the addRecipe() method.
+  api.addRecipe(recipeData)
+    .then(newRecipe => {
+      console.log("Recipe added:", newRecipe);
+      // Update your UI with the new recipe
+      // Clear the form
+      // etc...
+    })
+    .catch(error => {
+      console.error("Failed to add recipe:", error);
+    });
+}
+```
