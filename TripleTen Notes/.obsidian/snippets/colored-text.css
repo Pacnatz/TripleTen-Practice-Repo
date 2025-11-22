@@ -1,0 +1,35 @@
+.red-text {
+  color: red;
+}
+
+.red-text-bold {
+  color: red;
+  font-weight: bold;
+}
+
+.green-text {
+  color: limegreen;
+  font-style: italic;
+}
+
+.green-text::before{
+  content: "* ";
+}
+
+.green-text::after{
+  content: " *";
+}
+
+.green-text-bold {
+  color: limegreen;
+  font-weight: bold;
+}
+
+.blue-text {
+  color: steelblue;
+}
+
+.blue-text-bold{
+  color: steelblue;
+  font-weight: bold;
+}

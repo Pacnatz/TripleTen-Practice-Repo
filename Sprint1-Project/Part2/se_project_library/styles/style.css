@@ -1,0 +1,232 @@
+.page {
+  /* Add page class properties here */
+  min-width: 1300px;
+  max-width: 1600px;
+  margin: 0 auto;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 720px;
+  max-height: 800px;
+  padding: 30px 80px 40px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.header__title {
+  font-size: 66px;
+  line-height: 76px;
+  font-weight: 500;
+  color: #000000;
+  margin: 128px 0 0;
+  max-width: 601px;
+}
+
+.header__description {
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin: 32px 0 0;
+  max-width: 522px;
+}
+
+.header__image {
+  z-index: 1;
+  max-width: 550px;
+  position: absolute;
+  top: 148px;
+  right: 48px;
+}
+
+.header__footer {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.header__link {
+  color: #e96e3a;
+  text-decoration: none;
+}
+
+.header__address {
+  margin: 0;
+  color: #838383;
+}
+
+.nav {
+  /* Add flex properties here */
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav__logo {
+  width: 57px;
+  height: 80px;
+}
+
+.nav__links {
+  /* Reset default list styles here */
+  margin: 8px 0 0;
+  display: flex;
+  column-gap: 20px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav__link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.events {
+  padding: 100px 0 120px 80px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+}
+
+.events__content {
+  flex-basis: 580px;
+}
+
+.events__heading {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  margin: 0;
+}
+
+.events__title {
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 52px;
+  margin: 32px 0 0;
+}
+
+.events__info-section {
+  margin-top: 32px;
+}
+
+.event-info__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.event-info__icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 12px;
+  width: 24px;
+  height: 24px;
+}
+
+.event-info__icon_type_calendar {
+  background-image: url(../images/icon_calendar.svg);
+}
+
+.event-info__icon_type_pin {
+  background-image: url(../images/icon_pin.svg);
+}
+
+.event-info__text {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  margin: 0;
+}
+
+.events__description {
+  margin: 40px 0 60px;
+}
+
+.events__more {
+  color: #e96e3a;
+  text-decoration: none;
+}
+
+.events__cover {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 780px;
+  max-width: 780px;
+  position: relative;
+}
+
+.events__image {
+  max-width: 100%;
+}
+
+.person {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.person_name_feynman {
+  /* Use correct values of top/right/bottom/left properties to position the element */
+  top: -30px;
+  left: 319px;
+}
+
+.person_name_burbidge {
+  /* Use correct values of top/right/bottom/left properties to position the element */
+  top: 96px;
+  right: 125px;
+}
+
+.person_name_cannon {
+  /* Use correct values of top/right/bottom/left properties to position the element */
+  bottom: 18px;
+  right: 216px;
+}
+
+.person_name_mitchell {
+  /* Use correct values of top/right/bottom/left properties to position the element */
+  bottom: 82px;
+  left: 142px;
+}
+
+.person_name_tarter {
+  /* Use correct values of top/right/bottom/left properties to position the element */
+  top: 79px;
+  left: 159px;
+}
+
+.person__image {
+  max-width: 100%;
+}
+
+.person__image_size_l {
+  width: 140px;
+}
+
+.person__image_size_m {
+  width: 100px;
+}
+
+.person__image_size_s {
+  width: 80px;
+}
+
+.person__caption {
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+}

@@ -1,0 +1,53 @@
+Flex box overview:
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/#aa-flexbox-properties
+
+Flex box frog game:
+https://flexboxfroggy.com/
+
+Reset CSS:
+https://meyerweb.com/eric/tools/css/reset/
+Normalize CSS:
+https://necolas.github.io/normalize.css/
+
+Developer Tools Basic Practice:
+https://developer.chrome.com/docs/devtools/css/
+
+CSS Positioning Practice:
+https://css-position.services.practicum.com/
+
+Browser support:
+Icanuse.com
+
+Transform Matrix Generator:
+https://angrytools.com/css-generator/transform/
+
+Cubic-Bezier curve:
+https://cubic-bezier.com/#.44,-0.59,.83,.67
+
+Code and coffee:
+https://codeandcoffee.org/
+
+Webfont Generator:
+https://www.fontsquirrel.com/tools/webfont-generator
+
+** Volunteer engineering communities **
+
+Givecamp: The idea for this coding-for-charity community came from a Microsoft Developer Evangelist. Channel your inner software engineer energy to benefit the local community.
+The United Nations Volunteers (UNV) program: Find opportunities to contribute to sustainable human development through volunteerism worldwide.
+Remote Hub Volunteering: Browse various projects that are looking for volunteer software engineers.
+Idealist: Volunteer for social-impact projects.
+
+JavaScript Additional Resources:
+https://javascript.info/
+
+YDKJS:
+https://www.reddit.com/r/learnprogramming/comments/cf50qu/you_dont_know_javascript_but_you_could_for_free/
+
+SVG Repo:
+https://www.svgrepo.com/svg/452228/html-5
+
+Import Export Cheatsheet:
+https://www.samanthaming.com/tidbits/79-module-cheatsheet/
+
+Destructuring Cheatsheet:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring#syntax

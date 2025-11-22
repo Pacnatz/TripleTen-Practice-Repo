@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+}
+
+.transform {
+  transform: translate(50px, 10px);
+  max-width: 500px;
+  color: black;
+  background-color: cyan;
+  font-size: 20px;
+  font-weight: 800;
+
+  transition: color 1s linear 0.1s;
+}
+
+.transform:hover {
+  color: white;
+  /* transition: color 0.1s linear 0.1s; */
+}
+
+.Flex-Cont {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: 100vh;
+  justify-content: space-around;
+
+  align-items: stretch;
+
+  background-color: green;
+}
+
+.Test-Box {
+  display: flex;
+
+  font-size: 48px;
+  font-weight: bold;
+  width: 100px;
+}
+
+.Test-Box:nth-child(odd) {
+  background-color: red;
+}
+.Test-Box:nth-child(even) {
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Temp-Box {
+  display: flex;
+}
