@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "console.erro",
+                "query": "out",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -170,7 +171,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "a67d2e589ee994f2",
+  "active": "4a8ac2ec4cd55b61",
   "lastOpenFiles": [
     "Sprint 9.md",
     "Sprint 11.md",

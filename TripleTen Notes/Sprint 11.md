@@ -273,3 +273,9 @@ function Review({ reviews }) {
 
 export default Review;
 ```
+#### Creating a 404 Page:
+<span class="blue-text-bold">path="*"</span> - The * symbolizes that any bad route endpoint will lead to this element
+```javascript
+// App.jsx
+<Route path="*" element{<PageNotFound />} />
+```
