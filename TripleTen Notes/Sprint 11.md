@@ -279,3 +279,301 @@ export default Review;
 // App.jsx
 <Route path="*" element{<PageNotFound />} />
 ```
+## React and Data:
+#### Lifting State:
+- Move the state UP into their parent
+- Parent owns the state
+- Parent passes it DOWN to children as props
+```javascript
+function App() {
+  const [size, setSize] = React.useState(0);
+  
+  function handleChange(e) {
+    setSize(e.target.value);
+  }
+  
+  return (
+    <>
+      <Slider size={size} onChange={handleChange}/>
+    </>
+  );
+}
+
+function Slider(props) {
+  return (
+    <div id="slider-container">
+      <input type="range" min="0" max="100" value={props.size} onChange={props.onChange} />
+      <div className="counter">{props.size}</div>
+    </div>
+  );
+}
+```
+#### Creating and Adding Context:
+```javascript
+// translationContext.js
+
+export const TranslationContext = React.createContext();
+
+export const translations = {
+  en: {
+    greeting: 'Hello World',
+  },
+  ru: {
+    greeting: 'Привет, мир!',
+  },
+};
+```
+```javascript
+// App.js
+
+// import the context object
+import { TranslationContext, translations } from './translationContext';
+
+function App() {
+  // state responsible for the current language
+  const [lang, setLang] = React.useState('en');
+
+  return (
+        // Use data from translations[lang] using Context.Provider
+    <TranslationContext.Provider value={translations[lang]}>
+            {/* The subtree, in which the context will be accessed */}  
+      <Main />
+    </TranslationContext.Provider>
+  );
+}
+```
+#### Subscribing to a Context:
+```javascript
+function Header() {
+  // Subscribing to TranslationContext, and assigning it to a variable.
+  const translation = React.useContext(TranslationContext);
+
+    // Now we can access the context's values via this variable.
+  return (
+    <h1>
+      {translation.greeting}
+    </h1>
+  );
+}
+```
+```javascript
+// Class Component equivilant
+import { TranslationContext } from './translationContext';
+
+class Header extends React.Component {
+  // Assigning a contextType, which let's the component know which context.  
+  // React will find the closest translation context provider and make its
+  // value available as `this.context`.
+  static contextType = TranslationContext;
+
+  // Now we can access the translation context's values via `this.context`.
+  render() {
+    return (
+      <h1>
+        {this.context.greeting}!
+      </h1>
+    );
+  }
+}
+```
+<span class="red-text-bold">Class components can only subscribe to one context at a time</span>
+## Advanced React
+#### Lists and Keys:
+- Type (it can be an element, component, string, or empty node)
+- Tag name or component name
+If one of these 2 aren't met the node and child nodes must be completely replaced.
+<span class="red-text-bold">With list keys you can move the list element around without having to update all the affected list elements. Sometimes the state of an element gets mixed up</span>
+#### Working with Forms:
+<span class="blue-text-bold">controlled inputs</span> - Form input elements that are controlled within the component state
+```javascript
+function Form() {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(inputValue);
+  };
+  
+  const handleReset = () => {
+    setInputValue("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input 
+          type="text" 
+          {/* React re-renders the component with the new state */}
+          value={inputValue} {/* value makes it a controlled component */}
+          onChange={handleChange}
+        />
+      </label>
+      <button type="submit">Submit</button>
+      <button onClick={handleReset} type="reset">Reset</button>
+    </form>
+  );
+}
+
+export default Form;
+```
+How to handle the data from the form submit:
+
+1. Create a handler function in the component that you need to access the state.
+2. Pass this handler to the form component (as a prop or via context).
+3. Call the passed handler when the form is submitted and pass it the form submission data.
+#### Custom Hooks: useForm:
+The previous way of making forms doesn't scale well. Especially with 20-50 input fields
+```javascript
+import { useState } from 'react';
+
+function RegistrationForm() {
+  // A single state variable instead of one per input
+  const [values, setValues] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+    // A single change handler instead of one per input field
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(values);
+  };
+  
+  // Each input has its value controlled by a property of the
+  // values object, and they all use the same handler
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={values.name}
+        onChange={handleChange}
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={values.email}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={values.password}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        value={values.confirmPassword}
+        onChange={handleChange}
+      />
+      <button type="submit">Register</button>
+    </form>
+  );
+}
+```
+<span class="blue-text-bold">Custom Hooks</span> - JS functions that use React hooks internally and allow you to extract stateful logic into separate functions for reuse between components.
+- They start with the word "use" (like `useState` or `useEffect`)
+- They can call other hooks inside them
+- They return values that components can use
+```javascript
+import { useState } from "react";
+
+// useForm() accepts an object of default values as an argument,
+// creates a state object, its setter, and a change handler, and
+// returns them.
+export function useForm(defaultValues) {
+  const [values, setValues] = useState(defaultValues);
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  return { values, handleChange, setValues };
+}
+```
+```javascript
+// Import the useForm hook
+import { useForm } from './useForm';
+
+function RegistrationForm() {
+  // Call useForm() to receive the state and handler
+  const { values, handleChange, setValues } = useForm({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+ 
+  // Use values, setValues, and handleChange
+  // in the same way as before
+}
+```
+#### Refs:
+<span class="blue-text-bold">internal component variables</span> - Local variables that can be used inside components
+When you should use refs:
+- Managing focus, text selection, or media playback
+- Triggering imperative animations
+- Integrating with third-party DOM libraries
+<span class="blue-text-bold">useRef()</span> - Returns an object which we can assign to any element in our JSX code via the ref attribute
+```javascript
+// Functional components
+function VideoPlayer() {
+  const videoRef = React.useRef(); // assigning the object returned by a hook to a variable
+
+  function handleClick() {
+    videoRef.current.play(); // calling the required method on the current property of the object
+  }
+
+  return (
+    <>
+      <video ref={videoRef} src="./clip.mp4" /> // pointed a ref attribute to the element => got direct access to the DOM element
+      <button onClick={handleClick}>▶️</button> /* attached a handler to a button */
+    </>
+  );
+}
+```
+```javascript
+// Class components
+class VideoPlayer extends React.Component {
+  constructor() {
+    super();
+    this.videoRef = React.createRef(); // created a ref and assigned it to a variable - it will be a property of this
+  }
+
+  handleClick = () => {
+    this.videoRef.current.play(); // similarly, we call the required method on the current field of the object
+  };
+
+  render() {
+    return (
+      <>
+        <video ref={this.videoRef} src="./clip.mp4" /> //
+        <button onClick={this.handleClick}>▶️</button> //
+      </>
+    );
+  }
+}
+```
+<span class="red-text-bold">refs do not rerender the page!</span>
+Use refs when :
+- Storing and manipulating DOM elements.
+- Storing other objects that aren't necessary to calculate the JSX.
+- Integrating with third-party libraries.
