@@ -1001,6 +1001,9 @@ function handleRecipeSubmit(evt) {
       console.error("Failed to add recipe:", error);
     });
 }
+<<<<<<< HEAD
+```
+=======
 ```
 ## Object Prototypes:
 #### The \_\_proto__ Property:
@@ -1240,3 +1243,4 @@ console.log(Array.prototype.__proto__ === Object.prototype); // true
 ![[12. Object Heirarchy.png|500]]
 <span class="green-text">__proto__ is basically base class</span>
 #### Inheritance and the Prototype Chain:
+>>>>>>> 68753f5bfc97fa9b04a26afae12b67b1c9e0020b
