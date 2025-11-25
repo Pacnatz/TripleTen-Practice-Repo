@@ -1001,4 +1001,246 @@ function handleRecipeSubmit(evt) {
       console.error("Failed to add recipe:", error);
     });
 }
+<<<<<<< HEAD
 ```
+=======
+```
+## Object Prototypes:
+#### The \_\_proto__ Property:
+<span class="green-text"> Every JS object has the __proto__ property, which allows one object to access properties of another object</span>
+```javascript
+const obj1 = {
+  messageSpanish: "¡Hola Mundo!"
+};
+
+const obj2 = {
+  messageEng: 'Hello, World!'
+};
+
+obj2.__proto__ = obj1; // Links the spanish to obj2
+
+console.log(obj2.messageEng); // "Hello, World!" - the messageEng property
+console.log(obj2.messageSpanish); // "¡Hola Mundo!" — the messageSpanish property was also found
+
+// Objects can also be linked in a chain
+const obj3 = {
+  messageSpanish: "¡Hola Mundo!"
+};
+
+const obj4 = {
+  messageEng: "Hello, World!"
+};
+
+const obj5 = {
+  messageFrench: "Bonjour le Monde!"
+};
+
+obj4.__proto__ = obj3;
+obj5.__proto__ = obj4;
+
+console.log(obj5.messageFrench); // "Bonjour le Monde!" - found in obj5
+console.log(obj5.messageEng); // "Hello, World!" — wasn't found in obj5, but was accessed  through the __proto__ link in obj4 
+console.log(obj5.messageSpanish); // "¡Hola Mundo!" — wasn't found in obj5 and also through the __proto__ link in obj4, but was accessed through obj4.__proto__, or in obj3
+```
+object.\_\_proto__ property stores the object.prototype
+obj3 is a prototype of the obj4 object
+
+<span class="red-text-bold">It's best to not rewrite the __proto__ property directly as it can impact performance</span>
+#### The Object.create() method:
+<span class="blue-text-bold">Object.create</span> - Creates a new empty object. The first argument is the object that is to act as the prototype of the new object
+```javascript
+// CODE THAT REWORKS THIS DOWN BELOW
+// the createSong function creates objects
+function createSong(title, artist) {
+  const newSong = {
+    title,
+    artist,
+    isLiked: false,
+    // each of these objects contains the like() function
+    // This function is seperate on each object. We want to combine them to all be the same
+    like: function () {
+      newSong.isLiked = !newSong.isLiked;
+    }
+  };
+
+  return newSong;
+}
+
+// we can create several songs using one function
+const song1 = createSong("Chanel", "Frank Ocean");
+const song2 = createSong("Circles", "Mac Miller");
+const song3 = createSong("Until I Walk Through the Flames", "Wicca Phase Springs Eternal");
+```
+<span class="red-text-bold">---------------------------------------------------------------------</span>
+```javascript
+//  The prototype newSong object
+const songPrototype = {
+  like: function () {
+    this.isLiked = !this.isLiked;
+  }
+};
+
+function createSong(title, artist) {
+  // Create an empty object with the prototype
+  const newSong = Object.create(songPrototype);
+
+  // Add all the necessary properties to the object
+  newSong.title = title;
+  newSong.artist = artist;
+  newSong.isLiked = false;
+
+  // Return the song object
+  return newSong;
+}
+
+const song1 = createSong("Chanel", "Frank Ocean");
+const song2 = createSong("Circles", "Mac Miller");
+const song3 = createSong("Until I Walk Through the Flames", "Wicca Phase Springs Eternal");
+
+console.log(song1); // { title: "Chanel" ... }
+console.log(song2); // { title: "Circles" ... }
+console.log(song1.like === song2.like); // true
+```
+#### The new Operator:
+<span class="red-text-bold">Any JS function can be called with the new operator</span>
+```javascript
+const song = new createSong("Circles", "Mac Miller");
+```
+1. Before executing code, the engine creates a new empty object and assigns it to the value of `this` inside the function being called.
+2. The engine then executes the function code.
+3. Finally, `this` is returned.
+```javascript
+// FUNCTION TO REWRITE / REFACTOR
+function createSong(title, artist) {
+  // 1. Create an empty object with a prototype
+  const newSong = Object.create(songPrototype);
+
+  // 2. Add the necessary values
+  newSong.title = title;
+  newSong.artist = artist;
+  newSong.isLiked = false;
+
+  // 3. Return the object
+  return newSong;
+}
+```
+<span class="red-text-bold">------------------------------------------------------------------------</span>
+```javascript
+// Name it as Song so people know to use "new" Should be capitalized
+function Song(title, artist) {
+  // this = {}; — The engine will do it itself
+
+  // Add necessary values to this
+  this.title = title;
+  this.artist = artist;
+  this.isLiked = false;
+
+  // return this; —  The engine will deal with it
+}
+
+Song.prototype = songPrototype;
+
+const song = new Song("Circles", "Mac Miller");
+
+console.log(song);
+```
+#### The prototype Property:
+```javascript
+// We get an error because our songPrototype isn't being used
+const songPrototype = {
+  like: function () {
+    this.isLiked = !this.isLiked;
+  }
+};
+
+function Song(title, artist) {
+  this.title = title;
+  this.artist = artist;
+  this.isLiked = false;
+}
+
+const song1 = new Song("Chanel", "Frank Ocean");
+
+console.log(song1.like); // undefined — this property doesn't currently exist in the object or the prototype
+song1.like(); // error — undefined - it's not a function
+```
+<span class="red-text-bold">Functions are objects too. A constructor function also has its own prototype property</span>
+```javascript
+function Song(title, artist) {
+  this.title = title;
+  this.artist = artist;
+  this.isLiked = false;
+}
+
+// add the like() function to the Song.prototype object
+Song.prototype.like = function () {
+  this.isLiked = !this.isLiked;
+};
+
+const song1 = new Song("Chanel", "Frank Ocean");
+
+/* now the like() function is in the prototype again
+ and is available in new objects */
+
+console.log(song1.isLiked); // false
+song1.like();
+console.log(song1.isLiked); // true
+```
+<span class="blue-text-bold">__proto__</span> - Belongs to an object. Tells engine where to look for a property if there's no property in that object
+<span class="blue-text-bold">prototype</span> - prototype property is connected to a constructor function. Tells engine which object the \_\_proto__ link leads to
+#### The Secret Behind Javascript Classes
+<span class="red-text-bold">Classes are an easy-to-use tool for writing constructor functions</span>
+```javascript
+// Create the Song class
+// CLASS EQUIVILANT TO CONSTRUCTOR FUNCTIONS
+class Song {
+  constructor(title, artist) {
+    // In the class contrustor, modify this
+    this.title = title;
+    this.artist = artist;
+    this.isLiked = false;
+  }
+
+    // Add methods to the class, which will appear in the object prototype
+  // that such class will create
+  like() {
+    this.isLiked = !this.isLiked;
+  }
+}
+
+// Create an object using the Song class
+const song1 = new Song("Chanel", "Frank Ocean");
+```
+#### Built-in Constructors and Their Prototypes:
+###### The \_\_proto__ property of built-in objects:
+Arrays prototype contains built-in methods
+```javascript
+const arr2 = [1, 2, 3];
+
+console.log(arr2.__proto__ === Array.prototype); // true, because the __proto__ property refers to Array.prototype
+
+const obj = {};
+const num = 4;
+const str = "Hello";
+const bool = true;
+const func = function () {
+  console.log("Hello world!");
+};
+
+console.log(obj.__proto__ === Object.prototype); // true
+console.log(num.__proto__ === Number.prototype); // true
+console.log(str.__proto__ === String.prototype); // true
+console.log(bool.__proto__ === Boolean.prototype); // true
+console.log(func.__proto__ === Function.prototype); // true
+
+console.log(String.prototype.__proto__ === Object.prototype); // true
+console.log(Number.prototype.__proto__ === Object.prototype); // true
+console.log(Boolean.prototype.__proto__ === Object.prototype); // true
+console.log(Function.prototype.__proto__ === Object.prototype); // true
+console.log(Array.prototype.__proto__ === Object.prototype); // true
+```
+
+![[12. Object Heirarchy.png|500]]
+<span class="green-text">__proto__ is basically base class</span>
+#### Inheritance and the Prototype Chain:
+>>>>>>> 68753f5bfc97fa9b04a26afae12b67b1c9e0020b
