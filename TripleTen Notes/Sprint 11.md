@@ -577,3 +577,59 @@ Use refs when :
 - Storing and manipulating DOM elements.
 - Storing other objects that aren't necessary to calculate the JSX.
 - Integrating with third-party libraries.
+#### Pure Components:
+<span class="red-text-bold">When a parent component rerenders it triggers all the children to rerender too</span>
+<span class="blue-text-bold">Pure components</span> - Components that skips re-rendering if its props haven't changed
+
+```javascript
+// Making a functional component pure
+const Chat = React.memo((props) => {
+  return (
+    <div className="chat">
+      <img src={`img/${props.id}.png width="75" />
+      <h2>{Math.random()}</h2>
+      <div className="date">{props.lastMessageAt}</div>
+    </div>
+  );
+});
+```
+```javascript
+// Making a class component pure
+class Chat extends React.PureComponent {
+  render() {
+    return (
+      <div className="chat">
+        <img src={`img/${this.props.id}.png width="75" />
+        <h2>{Math.random()}</h2>
+        <div className="date">{this.props.lastMessageAt}</div>
+      </div>
+    );
+  };
+}
+```
+###### Shallow Comparisons:
+React only checks the first level of an object array and uses the === operator to compare values.
+Objects and Functions are compared by reference
+```javascript
+// These look the same to us, but JavaScript sees them as different objects
+const array1 = ['Gregory', 'James', 'Allison'];
+const array2 = ['Gregory', 'James', 'Allison'];
+
+console.log(array1 === array2); // false! Different memory locations
+```
+<span class="red-text-bold">React will rerender every frame because new objects are being made. Move objects and functions outside</span>
+```javascript 
+const USER_NAMES = ['Gregory', 'James', 'Allison']; // Created once 
+const handleClick = () => console.log(1); // Created once
+
+function ParentComponent() { 
+	return ( 
+		<MyPureComponent 
+			userNames={USER_NAMES} // Same reference every time 
+			onClick={handleClick} // Same reference every time 
+		/> 
+	); 
+}
+```
+#### Higher-Order Components (HOCs):
+<span class="blue-text-bold">High-order components</span> - Enhance the functionality of one or several existing components i.e. pure components, React.memo(). 
