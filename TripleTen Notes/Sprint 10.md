@@ -806,6 +806,8 @@ function NeonCursor() {
     document.body.classList.add('no-cursor');
 
     // we're returning a function that remove our effects
+    // Clean up function is linked to the effect NOT NeonCursor
+    // But if NeonCursor WAS unmounted the cleanup code will run a final time
     return () => {
       document.body.classList.remove('no-cursor');
       document.removeEventListener('mousemove', handleMouseMove);
