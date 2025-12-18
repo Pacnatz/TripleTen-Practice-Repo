@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Sprint 11"
             }
+          },
+          {
+            "id": "ee050318416a6ac9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sprint 12.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Sprint 12"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -170,10 +185,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "a67d2e589ee994f2",
+  "active": "cb1726c49b2847e7",
   "lastOpenFiles": [
-    "Sprint 10.md",
+    "Excalidraw/17. Node.js map.png",
     "Sprint 11.md",
+    "Sprint 12.md",
+    "Sprint 10.md",
     "Sprint 9.md",
     "Sprint 8.md",
     "Sprint 7.md",
