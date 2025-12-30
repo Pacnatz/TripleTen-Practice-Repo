@@ -73,6 +73,7 @@ server.listen(PORT);
 
 <span class="blue-text-bold">Stream</span> - A sequence of data coming from some source such as a network for file system. Data in a stream is transmitted in chunks of 64KB. To get the entire request body, you need to merge all the chunks together
 
+In Node.js, **HTTP request bodies arrive in chunks**, not all at once.
 ###### The event model:
 <span class="blue-text-bold">on()</span> - How you listen to events on an incoming HTTP request
 ```javascript
@@ -343,4 +344,332 @@ node inspect path/to/myProgram.js
 - `watch(var)`: watches a variable value
 #### Server Testing - Postman:
 <span class="blue-text-bold">Postman</span> - An application that lets you test GET POST PATCH PUT DELETE requests for your APIs
-#### Computer Networks:
+## Express.js 101:
+#### Creating an Express App:
+```bash
+npm init # Creates a package.json
+npm i express # Installs express
+npm i nodemon -D # Installs nodemon
+```
+```JSON
+{
+  "scripts": {
+    "dev": "nodemon index.js"
+  }
+}
+```
+```javascript
+const express = require('express');
+// listen to port 3000
+const { PORT = 3000 } = process.env;
+
+const app = express();
+
+app.listen(PORT, () => {
+  // if everything works fine, the console will show which port the application is listening to
+  console.log(`App listening at port ${PORT}`);
+})
+```
+#### How the Client and the Server Communicate:
+<span class="blue-text-bold">get()</span> - Express method to handle GET requests
+- A string which represents a server path
+- A callback handler, which is fired if the server receives that request and the route matches
+###### Response object:
+<span class="blue-text-bold">Response object</span> - Has a send() method that sends the response (such as the markup)
+Same thing as res.end() with node.js
+```javascript
+app.get('/', (req, res) => {
+  res.send(
+    `<html>
+    <body>
+      <p>Response to the signal from distant space</p>
+    </body>
+    </html>`
+  );
+});
+```
+<span class="blue-text-bold">send()</span> - Can accept different types of arguments: markup, text, JSON and will automatically set the Content-Type header for you
+```javascript
+app.get('/', (req, res) => {
+  // Changing the status
+  res.status(404).send('<h1>Page not found</h1>');
+});
+```
+###### Request object: 
+```javascript
+const pokemon = [
+  {
+    type: 'fire',
+    stage: 1,
+    name: 'Charmander'
+  },
+  {
+    type: 'fire',
+    stage: 2,
+    name: 'Charmeleon'
+  },
+  {
+    type: 'fire',
+    stage: 3,
+    name: 'Charizard'
+  }
+]; 
+
+GET `${BASE_PATH}/pokemon?type=fire&stage=3`; // This is a query parameter "Charizard"
+```
+<span class="red-text-bold">req.query returns the query parameters of the URL</span>
+**Use URL Params When**:
+- Identifying one specific resource
+- It's required to find the resource
+- It represents the identity of the resource
+**Use query params When**:
+- You are filtering, sorting, or searching a list
+- They are optional
+- You might combine many of them
+- Order doesn't matter
+```javascript
+app.get('/pokemon', (req, res) => {
+  // make a mutable copy of our pokedex
+  let result = pokemon;
+
+  // filter out all pokemon that aren't of the desired type
+  if (req.query.type) {
+    result = result.filter(item => item.type === req.query.type)
+  }
+
+  // filter out all pokemon that aren't of the desired stage
+  if (req.query.stage) {
+    result = result.filter(item => item.stage === req.query.stage)
+  }
+
+  res.send(result);
+});
+```
+`http://example.com/path?key1=value1&key2=value2`
+- `?` - Starts the query string
+- `&` - Separates multiple key-value pairs
+- Everything after `?` is optional
+`http://localhost:3000/search?term=react&page=2`
+- `/search` - route/path
+- `term=react` - first query parameter
+- `page=2` - second query parameter
+#### Routing with Express:
+###### Dynamic Routes:
+```javascript
+app.get('/users/:id', (req, res) => {
+  res.send(req.params);
+  /* 
+    upon sending a request to "http://localhost:3000/users/123",
+    this JSON-object will appear in req.params: { "id": "123" } 
+  */
+     
+});
+
+app.get('/users/:id/albums/:album/:photo', (req, res) => {
+  const { id, album, photo } = req.params;
+  /* 
+    when requesting "http://localhost:3000/users/123/albums/333/2"
+    the request parameters will be written like this:
+    {"id":"123","album":"333","photo":"2"}
+    we assigned them to the id, album, and photo consts
+  */ 
+
+  res.send(`We're on a user's page with the id of ${id}, looking through album #${album}, photo #${photo}`); 
+});
+```
+###### Divide this code into modules:
+<span class="red-text-bold">Router is like a mini-application that handles a group of related routes</span>
+```javascript
+// index.js
+
+// here, is the entry point setup
+const express = require('express');
+
+const { PORT = 3000 } = process.env;
+const app = express();
+
+// here we have data
+const users = [
+  { name: 'Jane', age: 22 },
+  { name: 'Hugo', age: 30 },
+  { name: 'Juliana', age: 48 },
+  { name: 'Vincent', age: 51 }
+];
+
+// here's where we'll do our routing
+app.get('/users/:id', (req, res) => {
+  if (!users[req.params.id]) {
+    res.send(`This user doesn't exist`);
+
+    // it's important we don't forget to exit from the function
+    return;
+  }
+
+  const { name, age } = users[req.params.id];
+  
+  res.send(`User ${name}, ${age} years old`);
+});
+
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+});
+```
+First things first, let's move our data into an individual file called `db.js`:
+```javascript
+// db.js
+
+module.exports = {
+  users: [
+    { name: 'Jane', age: 22 },
+    { name: 'Hugo', age: 30 },
+    { name: 'Juliana', age: 48 },
+    { name: 'Vincent', age: 51 }
+  ]
+};
+```
+Routing logic should also be moved into an individual file
+<span class="blue-text-bold">Router()</span> - Creates a new router object we can attach our handlers to (since app can only be created once)
+```javascript
+// routes.js
+
+const router = require('express').Router(); // creating a router
+const { users } = require('./db.js'); // since this data is necessary for routing, we need to import it
+
+router.get('/users/:id', (req, res) => { 
+  if (!users[req.params.id]) {
+    res.send(`This user doesn't exist`);
+    return;
+  }
+
+  const { name, age } = users[req.params.id];
+  
+  res.send(`User ${name}, ${age} years old`);
+});
+
+module.exports = router; // exporting the router
+```
+<span class="blue-text-bold">use()</span> - A method to execute routers
+- Base URL
+- The router itself
+```javascript
+// index.js 
+
+const express = require('express');
+const router = require('./routes.js'); // importing the router
+
+const { PORT = 3000 } = process.env;
+const app = express();
+
+app.use('/', router); // starting it
+
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+});
+```
+#### Middleware:
+```bash
+curl http://localhost:3000/users/1 # GET request like postman
+curl -X "PATCH" http://localhost:3000/users/1 # PATCH request
+```
+
+<span class="blue-text-bold">middleware</span> - A function that takes the repetitive code from each route. (Basically a refactor function)
+- Execute during the lifecycle of a server request
+- Write our request processing code inside a separate module
+<span class="red-text-bold">Middleware needs to send a response and return with send() OR it need to continue to the next function next()</span>
+```javascript
+router.get('/users/:id', (req, res) => {
+  // request processing begins here
+  const { id } = req.params;
+  // We can refactor this function so it works for get post delete put patch
+  if (!users[id]) {
+    res.send({ error: `This user doesn't exist` });
+    return;
+  }
+
+  const { name, age } = users[req.params.id];
+  // the request is sent. request processing ends here
+  res.send(`User ${name}, ${age} years old`);
+});
+```
+###### Creating a middleware function:
+```javascript
+// check whether the user exists
+const doesUserExist = (req, res, next) => {
+  if (!users[req.params.id]) {
+    res.send(`This user doesn't exist`);
+    return; // stop the function nothing else will happen
+  }
+
+  next(); // call the next function (sendUser)
+};
+
+// move the code for the server's response into a separate function
+const sendUser = (req, res) => {
+  const { name, age } = users[req.params.id];
+  res.send(`User ${name}, ${age} years old`);
+};
+
+router.get('/users/:id', doesUserExist); // pass the middleware here
+router.get('/users/:id', sendUser);
+// Can also be written as this
+router.get('users/:id', doesUserExist, sendUser)
+```
+###### Connecting Middleware:
+<span class="red-text-bold">If you want a global middleware you'll need the use() method</span>
+```javascript
+// index.js
+
+const express = require('express');
+const routes = require('./routes.js');
+
+const { PORT = 3000 } = process.env;
+const app = express();
+
+const logger = (req, res, next) => {
+  console.log('The request has been logged!');
+  next();
+};
+
+app.use(logger); // This will run for ALL routes
+app.use("/api", logger); // This will run for API route and anything after
+app.use("/api", timeLog, handler); // ONLY for 1 route
+app.use('/', routes);
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
+```
+#### Parsing a Request Body:
+<span class="red-text-bold">Express can parse a request body easier than vanilla node.js</span>
+```javascript
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // For vanilla form submissions
+
+// Express can do this instead of the req.on('data', chunk => {body += chu})
+app.post("/users", (req, res) => {
+  console.log(req.body); // already parsed object
+});
+
+```
+AJAX form submissions is the one that uses e.preventDefault()
+#### Serving HTML and Static Files with Express:
+<span class="blue-text-bold">express.static(__dirname)</span> - A middleware that sends a response in the form of a file / resource
+
+<span class="red-text-bold">If express finds a file it will send a response if not it will continue with next()</span>
+```javascript
+// This will send a response for all the files within the public dir
+app.use(express.static(path.join(__dirname, 'public'))); 
+// now the client only has access to public files
+```
+```
+GET /
+// Returns public/index.html
+
+GET /style.css
+// Returns public/style.css
+```
+```javascript
+app.use('/users/:id', checkRequest); // ✅ runs for all methods
+router.get('/users/:id', doesUserExist); // ✅ only runs for GET
+router.put('/users/:id', updateUser);   // ✅ only runs for PUT
+```
