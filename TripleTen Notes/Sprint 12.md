@@ -548,6 +548,7 @@ router.get('/users/:id', (req, res) => {
 
 module.exports = router; // exporting the router
 ```
+<span class="red-text-bold">app.use() connects middleware</span>
 <span class="blue-text-bold">use()</span> - A method to execute routers
 - Base URL
 - The router itself
@@ -610,7 +611,7 @@ const sendUser = (req, res) => {
 };
 
 router.get('/users/:id', doesUserExist); // pass the middleware here
-router.get('/users/:id', sendUser);
+router.get('/users/:id', sendUser); // Handlers are the parts that use res.send()
 // Can also be written as this
 router.get('users/:id', doesUserExist, sendUser)
 ```
@@ -673,3 +674,173 @@ app.use('/users/:id', checkRequest); // ✅ runs for all methods
 router.get('/users/:id', doesUserExist); // ✅ only runs for GET
 router.put('/users/:id', updateUser);   // ✅ only runs for PUT
 ```
+## Building a REST API:
+#### What is REST?
+<span class="blue-text-bold">REST</span> - Representational State Transfer
+- Easier to adapt an application to various platforms
+- Possible to create public APIs
+- Easier and faster to build and test server software
+###### Constraints of REST:
+1. **Client - Server Separation** - Client is responsible for making request to server. Server is responsible for storing and sending data
+2. **Stateless** - Each request must contain all the information the server needs
+3. **Uniform Interface** - The API has a standard and consistent way to access that interface
+	- **Resource identification in requests** - The request identifies the resource that it wants
+	- **Resource manipulation through representations** - The data sent back representing the resource contains enough info to modify or delete that resource
+	- **Self-descriptive messages** - Response should include info about how to parse it
+	- **Hypermedia as the engine of application state (HATEOAS)** - When requesting a resource, data sent back includes links to other related resources.
+4. **Layered System**  - We can use multiple APIs to create layered systems.
+5. **Cacheable** - Response data can be cached. This means data is stored on the client to later be retrieved and used.
+6. **Code-on-demand** - A server can extend a client's functionality using server code.
+#### HTTP Methods:
+<span class="blue-text-bold">URI</span> - Uniform Resource Identifier, an address similar to a URL
+```
+https://test.nomoreparties.co/cards/5d1f0611d321eb4bdcd707dd
+# This URI points to a resource that is addressed using its id
+```
+<span class="blue-text-bold">HEAD</span> - Head method is used the same way as GET but HEAD allows us to get a response header without the response body
+<span class="blue-text-bold">OPTIONS</span> - Options method is used to describe which HTTP methods the server supports
+###### Handling HTTP requests in Express:
+```javascript
+app.get('/books', getBooks);
+app.post('/books', createBook);
+app.put('/books/:id', replaceBook);
+app.patch('/books/:id', updateBookInfo);
+app.delete('/books/:id', deleteBook);
+
+// or
+
+router.get('/books', getBooks);
+router.post('/books', createBook);
+router.put('/books/:id', replaceBook);
+router.patch('/books/:id', updateBookInfo); // The updateBookInfo() function will be called only if the PATCH method is called on the corresponding URI
+router.delete('/books/:id', deleteBook);
+```
+#### Rest Resource Naming Rules:
+<span class="blue-text-bold">resource</span> - Document, image, blog post, social network user, anything that can be accessed with an HTTP request
+###### Basic naming guidelines:
+**Plural** names if they are a collection of resources
+**Singular** nouns are less common and used for individual documents
+**Verbs** when we are naming `controller` resources
+```
+https://nomoreparties.co/users
+https://nomoreparties.co/cards
+https://nomoreparties.co/users/{user-id}/profile
+https://nomoreparties.co/users/{user-id}/cart/checkout // Checkout verb
+```
+<span class="red-text-bold">Use hyphens in a URI since URI can't use spaces</span>
+```
+// do this:
+
+GET /users/{user-id}/user-devices
+
+// and not this:
+
+GET /users/{user-id}/user_devices
+```
+<span class="red-text-bold">URIs are case sensitive. We always use lowercase characters</span>
+<span class="red-text-bold">Don't reference the HTTP Method name</span>
+```
+// do this: 
+GET /users POST /users
+
+// and not this:
+
+GET /get-users
+
+POST /create-user
+```
+#### Server Response Status Codes:
+- **1xx: Informational response** - Indicates that the request was received by the server and the client must wait for the final response
+- **2xx: Success response** - The request was successful!
+- **3xx: Redirection** - The request has been redirected to another server and client needs to take some further action to complete the request
+- **4xx: Client Error** - Error on the client side. Request wasn't generated correctly or the client doesn't have the required access rights
+- **5xx: Server Error** - Something has broken or the server is overloaded
+###### Common Status Codes:
+**200 OK:** This request means the request was successful. A response with this status must contain a body. Most often, this status code is used when responding to a GET request on a resource.
+
+**201 Created:** This means that a resource was successfully created on the server. For example, this is a valid code to send upon creating a new blog post.
+
+**202 Accepted:** The server has started processing the request but hasn't finished it yet. This status is used to respond to requests that take a long time to process, for example, when processing a large amount of data.
+
+**301 Moved Permanently:** The API has been modified and the resource was moved to a new URI. This is indicated in the "Location" header of the server response.
+
+**302 Found:** The request must be redirected to a different URI. In the Location header, the server should send a new URI. When a response is received, the browser will automatically send a request to the new URL.
+
+**400 Bad Request:** This represents a client-side error. For example, we might see this error if the request was malformed. This is a general status. It is sent when no other 4xx status fits the context.
+
+**401 Unauthorized:** The request requires authorization, but the corresponding authorization headers are missing or malformed.
+
+**403 Forbidden:** The request is correct, but the client doesn't have the rights to complete it. For example, this can happen when a client tries to delete someone else's post.
+
+**404 Not Found:** This means a resource could not be found. For example, when trying to find a user and the requested id doesn't exist. This is probably the most recognizable code for many people.
+
+**405 Method Not Allowed:** The requested resource doesn't support the HTTP method that was used to make the request.
+
+**500 Internal Server Error:** This is a generic status for server-side errors. This isn't the client's fault.
+
+**501 Not Implemented:** The resource is on the server, but the request method is not supported by the server.
+###### Express response Status:
+```javascript
+// this is ok
+
+res.status(404);
+res.send({ message: 'User not found' });
+
+// but this is better
+
+res.status(404).send({ message: 'User not found' });
+```
+#### Response Caching:
+GET requests are cached by browsers.
+POST requests are not cached by default
+PUT, PATCH, DELETE requests are not cached at all
+###### Caching Headers:
+<span class="blue-text-bold">Expires</span> - Expires header indicates a time frame over which cached data remain valid. When this time ends, the data will again be requested from the server.
+```
+Expires: Fri, 20 May 2016 19:20:49 IST
+```
+<span class="blue-text-bold">Cache</span> - A temporary storage of data that can be quickly retrieved without having to recompute or fetch it from the original source
+<span class="blue-text-bold">Cache-Control</span> - Tells clients and CDNs how to store, reuse, or revalidate responses
+```
+// cache control
+
+Cache-Control: only-if-cached // If the response is in the cache, it will be returned from there. If not, the browser will respond with a 504 error
+
+Cache-Control: no-cache // The browser makes a conditional validation request to the server. If there are changes on the server, the cache will be updated.
+
+// max-age management
+
+Cache-Control: max-age=30000 // the maximum time in seconds during which a resource is considered relevant
+
+// cache update management
+
+Cache-Control: must-revalidate // if the cache has expired, a request will be sent to check the data in the cache
+
+// other
+
+Cache-Control: no-store // cache disabled
+
+Cache-Control: private // data can only be cached on the client side
+Cache-Control: public // data can be cached on proxy servers
+
+Cache-Control: proxy-revalidate // before using data from the proxy server cache, you should check if it's relevant
+
+Cache-Control: no-transform // proxies can't apply any changes to the resource. other settings — private, public and proxy-revalidate — don't impose such restrictions
+
+Cache-Control: max-age=30000, must-revalidate
+```
+<span class="blue-text-bold">ETag</span> - The ETag header contains a hash. A hash is a string from an algorithm that analyzes the cache
+If the response body changes, so does the hash
+```
+ETag: "abcd1234567n34jv"
+```
+<span class="blue-text-bold">Last-Modified</span> - Stores the date that the data was last updated on the server
+```
+Last-Modified: Fri, 10 May 2016 09:17:49 IST
+```
+###### Express cache headers:
+By default, express works as follows:
+
+- Creates an `ETag` response header that is sent in every server response. Thus, every response is cached.
+- The browser remembers the value of the header and at the next `GET` request it sends the `ETag` inside another header — `If-None-Match`.
+- If the value of the `If-None-Match` header matches some cache on the server, the response will be under the `304` Not Modified status code. As a result, the browser will take the response value from its cache.
